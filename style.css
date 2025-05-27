@@ -1,0 +1,282 @@
+/* --- Style Guide Colors --- */
+:root {
+    --blue: hsl(246, 80%, 60%); /* Profile card, active timeframe */
+    --light-red-work: hsl(15, 100%, 70%);
+    --soft-blue-play: hsl(195, 74%, 62%);
+    --light-red-study: hsl(348, 100%, 68%);
+    --lime-green-exercise: hsl(145, 58%, 55%);
+    --violet-social: hsl(264, 64%, 52%);
+    --soft-orange-self-care: hsl(43, 84%, 65%);
+
+    --very-dark-blue: hsl(226, 43%, 10%); /* Main BG */
+    --dark-blue: hsl(235, 46%, 20%);    /* Card BG */
+    --desaturated-blue: hsl(235, 45%, 61%); /* Text, timeframe links */
+    --pale-blue: hsl(236, 100%, 87%);   /* Time text, User Name */
+
+    --font-family: 'Rubik', sans-serif;
+    --border-radius: 15px;
+}
+
+/* --- Global Reset & Basic Styling --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--very-dark-blue);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    font-size: 18px; /* Default for "Last week - Xhrs" */
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: inherit;
+}
+
+/* --- Dashboard Container --- */
+.dashboard-container {
+    display: grid;
+    gap: 25px;
+    width: 100%;
+    max-width: 1100px; /* Max width for desktop */
+}
+
+/* --- User Card --- */
+.user-card {
+    background-color: var(--dark-blue);
+    border-radius: var(--border-radius);
+    overflow: hidden; /* To ensure children don't overflow rounded corners */
+}
+
+.user-info {
+    background-color: var(--blue);
+    padding: 30px;
+    border-radius: var(--border-radius); /* Will be mostly overridden by main card's overflow hidden except bottom */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.report-for {
+    font-size: 0.85rem; /* Approx 15px */
+    color: var(--pale-blue);
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.user-name {
+    font-size: 1.5rem; /* Approx 24px for mobile, can be larger for desktop */
+    font-weight: 300;
+    color: var(--pale-blue);
+    line-height: 1.2;
+}
+
+.timeframe-selector {
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.timeframe-btn {
+    font-size: 1rem; /* 18px */
+    color: var(--desaturated-blue);
+    transition: color 0.3s ease;
+}
+
+.timeframe-btn:hover {
+    color: var(--pale-blue);
+}
+
+.timeframe-btn.active {
+    color: white;
+    font-weight: 400;
+}
+
+/* --- Activity Grid --- */
+.activity-grid {
+    display: grid;
+    gap: 25px;
+}
+
+/* --- Activity Card --- */
+.activity-card {
+    background-color: var(--dark-blue);
+    border-radius: var(--border-radius);
+    padding-top: 40px; /* Space for the icon bar */
+    position: relative;
+    overflow: hidden; /* To contain the ::before pseudo-element */
+    transition: background-color 0.3s ease;
+}
+
+.activity-card:hover .activity-content {
+    background-color: hsl(235, 40%, 30%); /* Slightly lighter dark blue */
+}
+
+.activity-card::before { /* Colored top bar with icon */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px; /* Height of the colored bar */
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) -10px; /* Position icon to the right, slightly up */
+}
+
+/* Specific styles for each activity type */
+.activity-card[data-activity="Work"]::before {
+    background-color: var(--light-red-work);
+    background-image: url('images/icon-work.svg');
+}
+.activity-card[data-activity="Play"]::before {
+    background-color: var(--soft-blue-play);
+    background-image: url('images/icon-play.svg');
+}
+.activity-card[data-activity="Study"]::before {
+    background-color: var(--light-red-study);
+    background-image: url('images/icon-study.svg');
+}
+.activity-card[data-activity="Exercise"]::before {
+    background-color: var(--lime-green-exercise);
+    background-image: url('images/icon-exercise.svg');
+}
+.activity-card[data-activity="Social"]::before {
+    background-color: var(--violet-social);
+    background-image: url('images/icon-social.svg');
+}
+.activity-card[data-activity="Self Care"]::before {
+    background-color: var(--soft-orange-self-care);
+    background-image: url('images/icon-self-care.svg');
+}
+
+
+.activity-content {
+    background-color: var(--dark-blue); /* This is what changes on hover */
+    padding: 25px 30px;
+    border-radius: var(--border-radius); /* For hover effect to look contained */
+    position: relative; /* To ensure it's on top of the ::before */
+    z-index: 1;
+    transition: background-color 0.3s ease;
+}
+
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.activity-title {
+    font-size: 1rem; /* 18px */
+    font-weight: 500;
+    color: white;
+}
+
+.activity-menu-btn {
+    background-image: url('images/icon-ellipsis.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 21px;
+    height: 5px;
+    padding: 10px; /* Larger clickable area */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+.activity-menu-btn:hover {
+    opacity: 1;
+}
+
+.activity-hours {
+    font-size: 2rem; /* Approx 32px on mobile */
+    font-weight: 300;
+    color: var(--pale-blue);
+    margin-bottom: 8px;
+}
+
+.activity-previous {
+    font-size: 0.85rem; /* 15px */
+    color: var(--desaturated-blue);
+    font-weight: 300;
+}
+
+/* --- Desktop Layout (e.g., > 768px or > 992px) --- */
+@media (min-width: 992px) {
+    .dashboard-container {
+        grid-template-columns: 1fr 3fr; /* User card takes 1 part, activity grid takes 3 */
+        grid-template-rows: auto; /* Let content define row height */
+        align-items: start; /* Align user card to the top */
+    }
+
+    .user-card {
+        grid-row: 1 / span 2; /* Make user card span two implicit rows of the activity grid */
+    }
+
+    .user-info {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-bottom: 80px; /* More space at the bottom as per design */
+    }
+
+    .user-avatar {
+        width: 85px;
+        height: 85px;
+        margin-bottom: 20px;
+    }
+
+    .user-name {
+        font-size: 2.5rem; /* Approx 40px */
+    }
+
+    .timeframe-selector {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .activity-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns for activities */
+        grid-template-rows: repeat(2, auto);   /* 2 rows for activities */
+    }
+
+    .activity-header {
+        margin-bottom: 20px; /* More space on desktop */
+    }
+
+    .activity-hours {
+        font-size: 3.5rem; /* Approx 56px */
+    }
+}
+
+/* Minor adjustment for very large screens if needed */
+@media (min-width: 1200px) {
+    .user-name {
+        font-size: 2.75rem;
+    }
+}
